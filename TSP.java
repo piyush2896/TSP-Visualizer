@@ -82,9 +82,6 @@ public class TSP {
                 }
             }
 
-//        for(int i=0;i<points.length;i++){
-//            System.out.println(points[i][0]+" "+points[i][1]);
-//        }
             return points;
     }
     

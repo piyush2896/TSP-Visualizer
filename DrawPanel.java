@@ -1,58 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.JPanel;
-import javax.swing.JButton;
 
 /**
  *
  * @author khushboogupta
  */
+
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import javax.swing.*;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class DrawPanel extends JPanel implements ActionListener, Runnable {
 
-    private static final long serialVersionUID = 1L;
     public static DrawPanel dp = new DrawPanel();
     public static JFileChooser openFileChooser;
     public double[][] points;
     public int[][] scaledpoints;
     public int path[];
     public double path_sum = 0;
-    public static JButton OpenBtn = new JButton("Open");
-    public static JButton RunBtn = new JButton("Run");
-    public static JLabel MessageLbl = new JLabel("Please choose a File | ");
-    public static JLabel DistanceLbl = new JLabel("Best Distance : ");
-
-    public static JTextField DistanceTextF = new JTextField("0", 10);
-    public static JTextField IterTextF = new JTextField("0", 10);
-    public static JLabel IterLbl = new JLabel("Iteration : ");
+    public static JMenu File= new JMenu("File");
+    public static JMenu Project= new JMenu("Project");
+    public static JMenu About= new JMenu("About");
+    public static JMenuItem Save= new JMenuItem("Save");
+    public static JMenuItem Run= new JMenuItem("Run");
+    public static JMenuItem Stop = new JMenuItem("Stop");
+    public static JMenuItem New= new JMenuItem("New");
+    public static JMenuItem Open= new JMenuItem("Open");
+    public static JMenuBar mb=new JMenuBar();
     private BufferedImage bi = new BufferedImage(2000, 1000, BufferedImage.TYPE_INT_RGB);
     Thread t;
 
@@ -65,20 +45,18 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(bi, 0, 100, Color.yellow, this);
+        g.drawImage(bi, 0, 100, Color.BLACK, this);
     }
 
     public void runOpenBtn() {
-        OpenBtn.addActionListener(new ActionListener() {
+        Open.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("thissssss");
+                System.out.println("open btn clicked");
                 int returnValue = openFileChooser.showOpenDialog(DrawPanel.this);
-                openFileChooser.setCurrentDirectory(new File("/Users/khushboogupta/NetBeansProjects/CSEAssignment2/src/main/java/Data/"));
                 int dim = 0;
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File sf = openFileChooser.getSelectedFile();
                     try {
-                        MessageLbl.setText(sf.getName());
                         points = TSP.coordinate_matrix(sf.toString());
                         for(int i=0;i<points.length;i++){
                             for(int j=0;j<2;j++){
@@ -91,8 +69,6 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
                     } catch (Exception e2) {
                     }
 
-                } else {
-                    MessageLbl.setText("No File Chosen");
                 }
             }
 
@@ -131,7 +107,7 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
                 return (int) pt;
             }
 
-            //calculates maximum of all the x cordinates 
+            //calculates maximum of all the x cordinates
             private double calmax(double[][] points, int col) {
                 double max = Double.MIN_VALUE;
                 for (int i = 0; i < points.length; i++) {
@@ -155,21 +131,80 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
         });
     }
 
+    public void runSaveBtn(){
+        Run.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    public void runNewBtn(){
+        New.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Graphics g = bi.getGraphics();
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.drawImage(bi, 0, 100, Color.yellow,(img, infoflags, x, y, width, height) ->true  );
+                dp.repaint();
+
+            }
+        });
+    }
+
+    public void runRunBtn(){
+        Run.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    public void runStopBtn(){
+        Stop.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    public void runAboutBtn(){
+        About.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 JFrame frame = new JFrame();
-                dp.runOpenBtn();
-                dp.runRunBtn();
-                dp.add(OpenBtn);
-                dp.add(RunBtn);
-                dp.add(MessageLbl);
-                dp.add(DistanceLbl);
 
-                dp.add(DistanceTextF);
-                dp.add(IterLbl);
-                dp.add(IterTextF);
+                dp.runOpenBtn();
+                dp.runSaveBtn();
+                dp.runNewBtn();
+                dp.runRunBtn();
+                dp.runStopBtn();
+                dp.runAboutBtn();
+
+                File.add(Open);
+                File.add(Save);
+
+                Project.add(New);
+                Project.add(Run);
+                Project.add(Stop);
+
+                mb.add(File);
+                mb.add(Project);
+                mb.add(About);
+
+                dp.add(mb);
 
                 frame.add(dp);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -184,63 +219,62 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void runRunBtn() {
-        RunBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (RunBtn.getText().equalsIgnoreCase("Run")) {
-                    if (t.isAlive()) {
-                        t.resume();
-                        RunBtn.setText("Stop");
+//    private void runRunBtn() {
+//        RunBtn.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                if (RunBtn.getText().equalsIgnoreCase("Run")) {
+//                    if (t.isAlive()) {
+//                        t.resume();
+//                        RunBtn.setText("Stop");
+//
+//                    } else {
+//                        t.start();
+//                        RunBtn.setText("Stop");
+//                    }
+//                } else {
+//                    t.suspend();
+//                    RunBtn.setText("Run");
+//                }
+//
+//            }
+//
+//        });
+//    }
 
-                    } else {
-                        t.start();
-                        RunBtn.setText("Stop");
-                    }
-                } else {
-                    t.suspend();
-                    RunBtn.setText("Run");
-                }
-
-            }
-
-        });
-    }
-
-    ;
 
     @Override
     public void run() {
-        int it = 0;
-        Graphics g = bi.getGraphics();
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.yellow);
-
-        try {
-            path = TSP.adjacencymatrix_tsp(points);
-            for (int i = 0; i < path.length; i++) {
-                if (i == path.length - 1) {
-                    g2d.drawLine(scaledpoints[path[i]][0], scaledpoints[path[i]][1], scaledpoints[path[0]][0], scaledpoints[path[0]][1]);
-                    dp.repaint();
-                    t.sleep(1000);
-
-                } else {
-                    g2d.drawLine(scaledpoints[path[i]][0], scaledpoints[path[i]][1], scaledpoints[path[i + 1]][0], scaledpoints[path[i + 1]][1]);
-                    path_sum = Double.parseDouble(DistanceTextF.getText()) + TSP.euclidean(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1]);
-                    DistanceTextF.setText(String.valueOf(path_sum));
-                    it = Integer.parseInt(IterTextF.getText()) + 1;
-                    IterTextF.setText(String.valueOf(i + 1));
-                    System.out.println("Path sum : " + path_sum + " " + it);
-                    dp.repaint();
-                    t.sleep(1000);
-                }
-
-            }
-
-        } catch (IOException ex) {
-            Logger.getLogger(DrawPanel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(DrawPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        int it = 0;
+//        Graphics g = bi.getGraphics();
+//        Graphics2D g2d = (Graphics2D) g;
+//        g2d.setColor(Color.yellow);
+//
+//        try {
+//            path = TSP.adjacencymatrix_tsp(points);
+//            for (int i = 0; i < path.length; i++) {
+//                if (i == path.length - 1) {
+//                    g2d.drawLine(scaledpoints[path[i]][0], scaledpoints[path[i]][1], scaledpoints[path[0]][0], scaledpoints[path[0]][1]);
+//                    dp.repaint();
+//                    t.sleep(1000);
+//
+//                } else {
+//                    g2d.drawLine(scaledpoints[path[i]][0], scaledpoints[path[i]][1], scaledpoints[path[i + 1]][0], scaledpoints[path[i + 1]][1]);
+//                    path_sum = Double.parseDouble(DistanceTextF.getText()) + TSP.euclidean(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1]);
+//                    DistanceTextF.setText(String.valueOf(path_sum));
+//                    it = Integer.parseInt(IterTextF.getText()) + 1;
+//                    IterTextF.setText(String.valueOf(i + 1));
+//                    System.out.println("Path sum : " + path_sum + " " + it);
+//                    dp.repaint();
+//                    t.sleep(1000);
+//                }
+//
+//            }
+//
+//        } catch (IOException ex) {
+//            Logger.getLogger(DrawPanel.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(DrawPanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
 }
