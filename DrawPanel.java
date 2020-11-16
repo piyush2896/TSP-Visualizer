@@ -11,6 +11,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -57,6 +61,7 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
                 int returnValue = openFileChooser.showOpenDialog(DrawPanel.this);
                 int dim = 0;
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    Save.setEnabled(true);
                     File sf = openFileChooser.getSelectedFile();
                     try {
                         points = TSP.coordinate_matrix(sf.toString());
@@ -94,14 +99,15 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
                     System.out.println(points[i][0] + "  " + points[i][0]+ "  "+ scaledpoints[i][0] + "  " + scaledpoints[i][1]);
                     g2d.fillOval(x, y, 4, 4);
                     dp.repaint();
+
                 }
+                Run.setEnabled(true);
                 g.dispose();
                 g2d.dispose();
             }
 
             //scales all the points to fit them in the frame
             private int scale(double pt, double max, double min) {
-
                 pt = 700 * (pt - min) / (max - min);
                 return (int) pt;
             }
@@ -151,16 +157,35 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
                         scaledpoints[i][j]=0;
                     }
                 }
+                Open.setEnabled(true);
+                Save.setEnabled(false);
+                Run.setEnabled(false);
+                New.setEnabled(true);
+                Stop.setEnabled(false);
+
 
             }
         });
     }
 
-    public void runRunBtn(){
+        private void runRunBtn() {
         Run.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
+                if (Run.getText().equalsIgnoreCase("Run")) {
+                    if (t.isAlive()) {
+                        t.resume();
+                        Run.setEnabled(false);
+                        Stop.setEnabled(true);
+
+                    }
+                    else {
+                        t.start();
+                        Run.setEnabled(false);
+                        Stop.setEnabled(true);
+                    }
+                }
             }
+
         });
     }
 
@@ -168,6 +193,9 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
         Stop.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                t.suspend();
+                Run.setEnabled(true);
+                Stop.setEnabled(false);
 
             }
         });
@@ -214,6 +242,12 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
             public void run() {
                 JFrame frame = new JFrame();
 
+                Open.setEnabled(true);
+                Save.setEnabled(false);
+                Run.setEnabled(false);
+                New.setEnabled(true);
+                Stop.setEnabled(false);
+
                 dp.runOpenBtn();
                 dp.runSaveBtn();
                 dp.runNewBtn();
@@ -247,62 +281,38 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-//    private void runRunBtn() {
-//        RunBtn.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                if (RunBtn.getText().equalsIgnoreCase("Run")) {
-//                    if (t.isAlive()) {
-//                        t.resume();
-//                        RunBtn.setText("Stop");
-//
-//                    } else {
-//                        t.start();
-//                        RunBtn.setText("Stop");
-//                    }
-//                } else {
-//                    t.suspend();
-//                    RunBtn.setText("Run");
-//                }
-//
-//            }
-//
-//        });
-//    }
+
 
 
     @Override
     public void run() {
-//        int it = 0;
-//        Graphics g = bi.getGraphics();
-//        Graphics2D g2d = (Graphics2D) g;
-//        g2d.setColor(Color.yellow);
-//
-//        try {
-//            path = TSP.adjacencymatrix_tsp(points);
-//            for (int i = 0; i < path.length; i++) {
-//                if (i == path.length - 1) {
-//                    g2d.drawLine(scaledpoints[path[i]][0], scaledpoints[path[i]][1], scaledpoints[path[0]][0], scaledpoints[path[0]][1]);
-//                    dp.repaint();
-//                    t.sleep(1000);
-//
-//                } else {
-//                    g2d.drawLine(scaledpoints[path[i]][0], scaledpoints[path[i]][1], scaledpoints[path[i + 1]][0], scaledpoints[path[i + 1]][1]);
-//                    path_sum = Double.parseDouble(DistanceTextF.getText()) + TSP.euclidean(points[i][0], points[i][1], points[i + 1][0], points[i + 1][1]);
-//                    DistanceTextF.setText(String.valueOf(path_sum));
-//                    it = Integer.parseInt(IterTextF.getText()) + 1;
-//                    IterTextF.setText(String.valueOf(i + 1));
-//                    System.out.println("Path sum : " + path_sum + " " + it);
-//                    dp.repaint();
-//                    t.sleep(1000);
-//                }
-//
-//            }
-//
-//        } catch (IOException ex) {
-//            Logger.getLogger(DrawPanel.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(DrawPanel.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        int it = 0;
+        Graphics g = bi.getGraphics();
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.yellow);
+
+        try {
+            path = TSP.adjacencymatrix_tsp(points);
+            for (int i = 0; i < path.length; i++) {
+                if (i == path.length - 1) {
+                    g2d.drawLine(scaledpoints[path[i]][0], scaledpoints[path[i]][1], scaledpoints[path[0]][0], scaledpoints[path[0]][1]);
+                    dp.repaint();
+                    Stop.setEnabled(false);
+                    t.sleep(1000);
+
+                } else {
+                    g2d.drawLine(scaledpoints[path[i]][0], scaledpoints[path[i]][1], scaledpoints[path[i + 1]][0], scaledpoints[path[i + 1]][1]);
+                    dp.repaint();
+                    t.sleep(1000);
+                }
+
+            }
+
+        } catch (IOException ex) {
+            Logger.getLogger(DrawPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DrawPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
