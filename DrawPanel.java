@@ -5,16 +5,15 @@
  * @author khushboogupta
  */
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import javax.swing.*;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.swing.JPanel;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 public class DrawPanel extends JPanel implements ActionListener, Runnable {
 
@@ -23,16 +22,19 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
     public double[][] points;
     public int[][] scaledpoints;
     public int path[];
+    static JFrame f = new JFrame("frame");
     public double path_sum = 0;
     public static JMenu File= new JMenu("File");
     public static JMenu Project= new JMenu("Project");
     public static JMenu About= new JMenu("About");
+
     public static JMenuItem Save= new JMenuItem("Save");
     public static JMenuItem Run= new JMenuItem("Run");
     public static JMenuItem Stop = new JMenuItem("Stop");
     public static JMenuItem New= new JMenuItem("New");
     public static JMenuItem Open= new JMenuItem("Open");
     public static JMenuBar mb=new JMenuBar();
+    public static JLabel l = new JLabel();
     private BufferedImage bi = new BufferedImage(2000, 1000, BufferedImage.TYPE_INT_RGB);
     Thread t;
 
@@ -158,7 +160,6 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
         Run.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
             }
         });
     }
@@ -173,13 +174,39 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
     }
 
     public void runAboutBtn(){
-        About.addActionListener(new ActionListener() {
+        About.addMenuListener(new MenuListener() {
+
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void menuSelected(MenuEvent e) {
+                System.out.println("menuSelected");
+                JFrame f= new JFrame("About");
+                JLabel label = new JLabel("my text");
+                label.setFont(new java.awt.Font("Arial", Font.ITALIC, 16));
+                label.setOpaque(true);
+                label.setBackground(Color.BLACK);
+                label.setForeground(Color.WHITE);
+
+                f.getContentPane().add( label );
+                f.setSize(400,400);
+                f.setLayout(null);
+                f.setVisible(true);
+
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+                //System.out.println("menuDeselected");
+
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+                //System.out.println("menuCanceled");
 
             }
         });
     }
+
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
