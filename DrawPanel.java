@@ -45,7 +45,7 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(bi, 0, 100, Color.BLACK, this);
+        g.drawImage(bi, 0, 100, Color.yellow, this);
     }
 
     public void runOpenBtn() {
@@ -59,10 +59,8 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
                     try {
                         points = TSP.coordinate_matrix(sf.toString());
                         for(int i=0;i<points.length;i++){
-                            for(int j=0;j<2;j++){
-                                System.out.print(points[i][j]);
-                            }
-                            System.out.print("\n");
+
+                            System.out.println(points[i][0]+"  "+points[i][1]);
                         }
                         drawoval(points);
 
@@ -81,7 +79,6 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
                 int x, y;
 
                 for (int i = 0; i < points.length; i++) {
-
                     max_x = calmax(points, 0);
                     min_x = calmin(points, 0);
                     max_y = calmax(points, 1);
@@ -92,7 +89,7 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
 
                     scaledpoints[i][0] = x;
                     scaledpoints[i][1] = y;
-
+                    System.out.println(points[i][0] + "  " + points[i][0]+ "  "+ scaledpoints[i][0] + "  " + scaledpoints[i][1]);
                     g2d.fillOval(x, y, 4, 4);
                     dp.repaint();
                 }
@@ -103,7 +100,7 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
             //scales all the points to fit them in the frame
             private int scale(double pt, double max, double min) {
 
-                pt = 1000 * (pt - min) / (max - min);
+                pt = 700 * (pt - min) / (max - min);
                 return (int) pt;
             }
 
@@ -144,10 +141,14 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
         New.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Graphics g = bi.getGraphics();
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.drawImage(bi, 0, 100, Color.yellow,(img, infoflags, x, y, width, height) ->true  );
+                bi = new BufferedImage(2000, 1000, BufferedImage.TYPE_INT_RGB);
                 dp.repaint();
+                for(int i=0;i<points.length;i++){
+                    for(int j=0;j<2;j++){
+                        points[i][j]=0;
+                        scaledpoints[i][j]=0;
+                    }
+                }
 
             }
         });
