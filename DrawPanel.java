@@ -39,6 +39,9 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
     public static JMenuItem Open= new JMenuItem("Open");
     public static JMenuBar mb=new JMenuBar();
     public static JLabel l = new JLabel();
+    public static JLabel t1 = new JLabel();
+    public static JLabel t2 = new JLabel();
+    public static JLabel t3 = new JLabel();
     private BufferedImage bi = new BufferedImage(2000, 1000, BufferedImage.TYPE_INT_RGB);
     Thread t;
 
@@ -207,17 +210,39 @@ public class DrawPanel extends JPanel implements ActionListener, Runnable {
             @Override
             public void menuSelected(MenuEvent e) {
                 System.out.println("menuSelected");
-                JFrame f= new JFrame("About");
-                JLabel label = new JLabel("my text");
-                label.setFont(new java.awt.Font("Arial", Font.ITALIC, 16));
-                label.setOpaque(true);
-                label.setBackground(Color.BLACK);
-                label.setForeground(Color.WHITE);
+//                JFrame f= new JFrame("About");
+//                JLabel label = new JLabel();
+//                label.setText("Swarna");
+//                label.setFont(new java.awt.Font("Arial", Font.ITALIC, 30));
+////                label.setOpaque(true);
+////                label.setBackground(Color.BLACK);
+////                label.setForeground(Color.WHITE);
+//
+//                f.add( label );
+//
+//                f.setSize(400,400);
+//                f.setLayout(null);
+//                f.setVisible(true);
+                f = new JFrame("label");
 
-                f.getContentPane().add( label );
-                f.setSize(400,400);
-                f.setLayout(null);
-                f.setVisible(true);
+                JLabel l = new JLabel("<html>Team Details<br/>...<br/>Khushboo Gupta, kgupta51@asu.edu, 1217167315<br/>" +
+                        "Piyush Malhotra, pmalhot3@asu.edu, 1217439379<br/>" +
+                        "Swarnalatha Srenigarajan, ssreniga@asu.edu, 1217035534</html>", SwingConstants.CENTER);
+
+
+                // create a panel
+                JPanel p = new JPanel();
+
+                // add label to panel
+                p.add(l);
+
+                // add panel to frame
+                f.add(p);
+
+                // set the size of frame
+                f.setSize(300, 300);
+
+                f.show();
 
             }
 
