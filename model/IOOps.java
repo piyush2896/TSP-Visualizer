@@ -25,7 +25,7 @@ public class IOOps {
                 if(lineNum == startRow){
                     String[] splits = line.split(" ");
                     try{
-                        points.add(new Point(Double.parseDouble(splits[2]), Double.parseDouble(splits[1])));
+                        points.add(new Point(Double.parseDouble(splits[1]), Double.parseDouble(splits[2])));
                     }catch(Exception ex){
                         break;
                     }
