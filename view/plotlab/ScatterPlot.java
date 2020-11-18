@@ -31,6 +31,5 @@ public class ScatterPlot extends JPanel{
         g.setColor(Color.BLACK);
         fillCoords(g2d);
         g2d.dispose();
-        coords = null;
     }
 }

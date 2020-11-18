@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class IOOps {
-    public static ArrayList<Point> file2points(String filename, int startRow){
+    public static ArrayList<Point> file2points(String filename){
         BufferedReader reader;
 
         ArrayList<Point> points = new ArrayList<>();
@@ -16,21 +16,16 @@ public class IOOps {
             int lineNum = 1;
             String line = reader.readLine();
 
-            while(!line.contains("DIMENSION")){
+            while(!(line.charAt(0) == '1')){
                 line = reader.readLine();
-                lineNum += 1;
             }
 
             while(line != null){
-                if(lineNum == startRow){
+                try{
                     String[] splits = line.split(" ");
-                    try{
-                        points.add(new Point(Double.parseDouble(splits[1]), Double.parseDouble(splits[2])));
-                    }catch(Exception ex){
-                        break;
-                    }
-                }else{
-                    lineNum += 1;
+                    points.add(new Point(Double.parseDouble(splits[1]), Double.parseDouble(splits[2])));
+                }catch(Exception ex){
+                    break;
                 }
 
                 line = reader.readLine();

@@ -21,11 +21,15 @@ public class KNN {
         bestOrder = new int[tspData.getPoints().size()];
     }
 
-    public void run(int startPoint){
+    public int[] getBestOrder() {
+        return bestOrder;
+    }
+
+    public double run(int startPoint){
         HashSet<Integer> visited = new HashSet<>();
         double totalDistance = run(startPoint, visited);
 
-        System.out.println("Total Distance: " + totalDistance);
+        return totalDistance;
     }
 
     private double run(int src, HashSet<Integer> visited){
@@ -78,10 +82,10 @@ public class KNN {
 
     public static void main(String[] args) {
         TSPData tspData = TSPData.getInstance();
-        tspData.init("C:\\Piyush\\Fall2020\\CSE564\\Assignment05\\CSE564-Assign05\\Data\\wi29.tsp");
+        tspData.init("C:\\Piyush\\Fall2020\\CSE564\\Assignment05\\CSE564-Assign05\\Data\\wi29_2.tsp");
 
         try {
-            KNN knn = new KNN(1, new Euclidean());
+            KNN knn = new KNN(3, new Euclidean());
 
             knn.run(0);
             ArrayList<Point> scaledPoints = TSPData.getInstance().getScaledPoints(0, 0, 300, 300);

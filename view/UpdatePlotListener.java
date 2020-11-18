@@ -1,6 +1,6 @@
 package view;
 
-public interface PlotUpdatesListener {
+public interface UpdatePlotListener {
 
     void newFileRead();
     void newOrderFound(int[] order);

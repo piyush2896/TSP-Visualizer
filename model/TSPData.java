@@ -6,7 +6,6 @@ import java.util.Observer;
 
 public class TSPData implements Observer {
 
-    private static final int START_ROW = 8;
     private static TSPData TSP_DATA_INSTANCE = null;
 
     private ArrayList<Point> points = new ArrayList<>();
@@ -39,7 +38,7 @@ public class TSPData implements Observer {
     public void init(String filename){
         isInitialized = true;
 
-        points = IOOps.file2points(filename, TSPData.START_ROW);
+        points = IOOps.file2points(filename);
         initMaxAndMin();
     }
 
@@ -95,5 +94,10 @@ public class TSPData implements Observer {
         // coords - > {Y coord, X coord, minY, minX, maxY, maxX}
         double[] pointDouble = (double[]) coords;
         addPoint(pointDouble[1], pointDouble[0], pointDouble[3], pointDouble[2], pointDouble[5], pointDouble[4]);
+    }
+
+    public void clean(){
+        isInitialized = false;
+        points = null;
     }
 }
