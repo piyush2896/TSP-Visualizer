@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-public class TSPData implements Observer {
+public class TSPData extends Observable {
 
     private static TSPData TSP_DATA_INSTANCE = null;
 
@@ -59,6 +59,9 @@ public class TSPData implements Observer {
                 new double[]{this.minX, this.maxX}, new double[]{this.minY, this.maxY});
 
         points.add(point);
+
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<Point> getScaledPoints(double minX, double minY, double maxX, double maxY){
@@ -89,12 +92,12 @@ public class TSPData implements Observer {
 
     public ArrayList<Point> getPoints() { return points; }
 
-    @Override
-    public void update(Observable o, Object coords) {
-        // coords - > {Y coord, X coord, minY, minX, maxY, maxX}
-        double[] pointDouble = (double[]) coords;
-        addPoint(pointDouble[1], pointDouble[0], pointDouble[3], pointDouble[2], pointDouble[5], pointDouble[4]);
-    }
+//    @Override
+//    public void update(Observable o, Object coords) {
+//        // coords - > {Y coord, X coord, minY, minX, maxY, maxX}
+//        double[] pointDouble = (double[]) coords;
+//        addPoint(pointDouble[1], pointDouble[0], pointDouble[3], pointDouble[2], pointDouble[5], pointDouble[4]);
+//    }
 
     public void clean(){
         isInitialized = false;
