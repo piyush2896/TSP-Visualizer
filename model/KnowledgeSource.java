@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import model.Euclidean;
 import model.KNN;
@@ -10,15 +10,17 @@ public class KnowledgeSource extends Thread {
     private int number;
     private ArrayList<Point> points;
     private int startPoint;
+    private int endPoint;
     private int k;
-    private KNN knn;
+    private KNN bestKNN;
     private double distance;
 
-    public KnowledgeSource(ArrayList<Point> points, int number, int k, int startPoint){
+    public KnowledgeSource(ArrayList<Point> points, int number, int k, int startPoint, int endPoint){
         this.points = points;
         this.number = number;
         this.startPoint = startPoint;
         this.k = k;
+        this.endPoint = endPoint;
     }
 
     public int getNumber() {
@@ -30,14 +32,21 @@ public class KnowledgeSource extends Thread {
     }
 
     public int[] getOrder(){
-        return knn.getBestOrder();
+        return bestKNN.getBestOrder();
     }
 
     @Override
     public void run() {
         try {
-            knn = new KNN(this.k, new Euclidean());
-            distance = knn.run(this.startPoint);
+            double minDistance = Double.MAX_VALUE;
+            KNN knn = new KNN(this.k, new Euclidean());
+            for(int i = startPoint; i <= endPoint; i++){
+                distance = knn.run(i);
+                if(distance < minDistance){
+                    minDistance = distance;
+                    bestKNN = knn;
+                }
+            }
         }catch (Exception e) {
             e.printStackTrace();
         }

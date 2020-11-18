@@ -18,8 +18,7 @@ public class DrawPanel extends JPanel {
     public void initPlot(Dimension bounds){
 
         System.out.println(bounds.width + " " + bounds.height);
-        ScatterPlot plot = new ScatterPlot(
-                TSPData.getInstance().getScaledPoints(0, 0, bounds.width, bounds.height));
+        ScatterPlot plot = new ScatterPlot(TSPData.getInstance());
 
         if(getComponentCount() != 0){
             removeAll();
@@ -33,8 +32,7 @@ public class DrawPanel extends JPanel {
 
     public void updateView(int[] order, Dimension bounds){
         removeAll();
-        LinePlot plot = new LinePlot(
-                TSPData.getInstance().getScaledPoints(0, 0, bounds.width, bounds.height), order);
+        LinePlot plot = new LinePlot(TSPData.getInstance(), order);
         add(plot);
         revalidate();
         repaint();

@@ -1,6 +1,7 @@
 package view.plotlab;
 
 import model.Point;
+import model.TSPData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,16 +14,20 @@ public class LinePlot extends JPanel{
 
     private static final long serialVersionUID = 1L;
 
-    private ArrayList<Point> coords;
+    private TSPData tspData;
     private int[] order;
     
-    public LinePlot(ArrayList<Point> coords, int[] order){
-        this.coords = coords;
+    public LinePlot(TSPData tspData, int[] order){
+        this.tspData = tspData;
         this.order = order;
     }
 
 
     private void fillCoords(Graphics2D g2d){
+
+        Dimension bounds = getParent().getSize();
+        ArrayList<Point> coords = tspData.getScaledPoints(0, 0, bounds.width, bounds.height);
+
         Point2D.Double pt = new Point2D.Double(coords.get(order[0]).getX(), coords.get(order[0]).getY());
         Ellipse2D dot = new Ellipse2D.Double(pt.x - 1, pt.y - 1, 5, 5);
         g2d.fill(dot);

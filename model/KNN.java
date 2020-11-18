@@ -74,10 +74,9 @@ public class KNN {
     }
 
     private int[] argMin(double[] distances){
-        int[] sortedIndices = IntStream.range(0, distances.length)
+        return IntStream.range(0, distances.length)
                               .boxed().sorted((i, j)-> (int)(distances[i]-distances[j]))
                               .mapToInt(ele->ele).toArray();
-        return sortedIndices;
     }
 
     public static void main(String[] args) {
@@ -85,10 +84,18 @@ public class KNN {
         tspData.init("C:\\Piyush\\Fall2020\\CSE564\\Assignment05\\CSE564-Assign05\\Data\\wi29_2.tsp");
 
         try {
-            KNN knn = new KNN(3, new Euclidean());
+            KNN knn = new KNN(1, new Euclidean());
 
             knn.run(0);
             ArrayList<Point> scaledPoints = TSPData.getInstance().getScaledPoints(0, 0, 300, 300);
+            for(int order: knn.bestOrder){
+                Point p1 = tspData.getPoints().get(order);
+                Point p2 = scaledPoints.get(order);
+                System.out.println(order + "\t(" + p1.getX() + " " + p2.getY() + ") " + "\t(" + p2.getX() + " " + p2.getY() + ")");
+            }
+            System.out.println("---------");
+            knn.run(2);
+            scaledPoints = TSPData.getInstance().getScaledPoints(0, 0, 300, 300);
             for(int order: knn.bestOrder){
                 Point p1 = tspData.getPoints().get(order);
                 Point p2 = scaledPoints.get(order);
