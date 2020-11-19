@@ -7,5 +7,5 @@ import java.util.ArrayList;
 public interface UpdatePlotListener {
 
     void newScatterPlot(ArrayList<Point> points);
-    void newOrderFound(ArrayList<Point> points, int[] order);
+    void newOrderFound(ArrayList<Point> points, int[][] orders);
 }

@@ -32,9 +32,9 @@ public class DrawPanel extends JPanel {
         }
     }
 
-    public void updateView(ArrayList<Point> points, int[] order, Dimension bounds){
+    public void updateView(ArrayList<Point> points, int[][] orders, Dimension bounds){
         removeAll();
-        LinePlot plot = new LinePlot(points, order);
+        LinePlot plot = new LinePlot(points, orders);
         add(plot);
         revalidate();
         repaint();

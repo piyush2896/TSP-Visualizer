@@ -44,7 +44,7 @@ public class TSPController implements Observer {
                             }else if(mainContainer.getPlotPanel().getComponent(0) instanceof LinePlot){
                                 Dimension size = mainContainer.getPlotPanel().getSize();
                                 ArrayList<Point> scaledPoints = TSPData.getInstance().getScaledPoints(0, 0, size.width, size.height);
-                                plotListener.newOrderFound(scaledPoints, RouteData.getInstance().getTop3Orders()[0]);
+                                plotListener.newOrderFound(scaledPoints, RouteData.getInstance().getTop3Orders());
                             }
                         }
                     });
@@ -168,7 +168,7 @@ public class TSPController implements Observer {
                     Dimension size = mainContainer.getPlotPanel().getSize();
                     ArrayList<Point> scaledPoints = TSPData.getInstance().getScaledPoints(
                             0, 0, size.width, size.height);
-                    plotListener.newOrderFound(scaledPoints, RouteData.getInstance().getTop3Orders()[0]);
+                    plotListener.newOrderFound(scaledPoints, RouteData.getInstance().getTop3Orders());
                 }
             });
         }

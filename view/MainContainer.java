@@ -24,8 +24,8 @@ public class MainContainer extends JFrame {
             }
 
             @Override
-            public void newOrderFound(ArrayList<Point> points, int[] order) {
-                plotPanel.updateView(points, order, getSize());
+            public void newOrderFound(ArrayList<Point> points, int[][] orders) {
+                plotPanel.updateView(points, orders, getSize());
                 revalidate();
                 repaint();
             }
