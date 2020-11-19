@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.stream.IntStream;
 
@@ -49,7 +51,7 @@ public class KNN {
             visited.add(src);
 
 
-            int[] closestPoints = argMin(metric.calculate(tspData.getPoints().get(src), tspData.getPoints(), visited));
+            Integer[] closestPoints = argSort(metric.calculate(tspData.getPoints().get(src), tspData.getPoints(), visited));
 
             minDistance = Double.MAX_VALUE;
             int minPoint = -1;
@@ -71,6 +73,20 @@ public class KNN {
 
         return minDistance;
 
+    }
+
+    private Integer[] argSort(double[] distances) {
+        Integer[] indexes = new Integer[distances.length];
+        for(int i = 0; i < distances.length; i++) indexes[i] = i;
+
+        Arrays.sort(indexes, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return Double.compare(distances[o1], distances[o2]);
+            }
+        });
+
+        return indexes;
     }
 
     private int[] argMin(double[] distances){

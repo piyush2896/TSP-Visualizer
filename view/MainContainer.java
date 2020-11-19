@@ -12,10 +12,16 @@ public class MainContainer extends JFrame {
 
     private UpdatePlotListener updatePlotListener;
 
+    private void updatePlot(int[] order) {
+        plotPanel.updateView(order, getSize());
+        revalidate();
+        repaint();
+    }
+
     private void initUpdatePlotListener(){
         updatePlotListener = new UpdatePlotListener() {
             @Override
-            public void newFileRead() {
+            public void newScatterPlot() {
                 plotPanel.initPlot(getSize());
                 revalidate();
                 repaint();
@@ -40,6 +46,10 @@ public class MainContainer extends JFrame {
         setJMenuBar(menuBar);
         add(plotPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public DrawPanel getPlotPanel() {
+        return plotPanel;
     }
 
     public void updateMenuItemEnabled(boolean openMenu, boolean saveMenu, boolean runMenu, boolean newMenu, boolean stopMenu) {
@@ -85,6 +95,6 @@ public class MainContainer extends JFrame {
         TSPData tspData = TSPData.getInstance();
         tspData.init("C:\\Piyush\\Fall2020\\CSE564\\Assignment05\\CSE564-Assign05\\Data\\wi29.tsp");
 
-        container.getUpdatePlotListener().newFileRead();
+        container.getUpdatePlotListener().newScatterPlot();
     }
 }

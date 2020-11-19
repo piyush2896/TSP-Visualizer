@@ -28,14 +28,14 @@ public class LinePlot extends JPanel{
         Dimension bounds = getParent().getSize();
         ArrayList<Point> coords = tspData.getScaledPoints(0, 0, bounds.width, bounds.height);
 
-        Point2D.Double pt = new Point2D.Double(coords.get(order[0]).getX(), coords.get(order[0]).getY());
+        Point2D.Double pt = new Point2D.Double(coords.get(0).getX(), coords.get(0).getY());
         Ellipse2D dot = new Ellipse2D.Double(pt.x - 1, pt.y - 1, 5, 5);
         g2d.fill(dot);
         for (int i = 0; i < order.length-1; i++) {
-            pt = new Point2D.Double(coords.get(order[i+1]).getX(), coords.get(order[i+1]).getY());
+            pt = new Point2D.Double(coords.get(i+1).getX(), coords.get(i+1).getY());
             dot = new Ellipse2D.Double(pt.x - 1, pt.y - 1, 5, 5);
             Shape l = new Line2D.Double(
-                    coords.get(order[i]).getX(), coords.get(order[i+1]).getY(),
+                    coords.get(order[i]).getX(), coords.get(order[i]).getY(),
                     coords.get(order[i+1]).getX(), coords.get(order[i+1]).getY());
             g2d.draw(l);
             g2d.fill(dot);

@@ -2,6 +2,6 @@ package view;
 
 public interface UpdatePlotListener {
 
-    void newFileRead();
+    void newScatterPlot();
     void newOrderFound(int[] order);
 }

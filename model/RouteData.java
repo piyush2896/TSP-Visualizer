@@ -27,7 +27,7 @@ public class RouteData extends Observable {
         if(distance < distances[0]) {
             top3Orders[2] = top3Orders[1];
             top3Orders[1] = top3Orders[0];
-            top3Orders[0] = order;
+            top3Orders[0] = order.clone();
 
             distances[2] = distances[1];
             distances[1] = distances[0];
@@ -36,14 +36,14 @@ public class RouteData extends Observable {
             isChanged = true;
         }else if(distance < distances[1]) {
             top3Orders[2] = top3Orders[1];
-            top3Orders[1] = order;
+            top3Orders[1] = order.clone();
 
             distances[2] = distances[1];
             distances[1] = distance;
 
             isChanged = true;
         }else if(distance < distances[2]) {
-            top3Orders[2] = order;
+            top3Orders[2] = order.clone();
             distances[2] = distance;
 
             isChanged = true;
@@ -53,5 +53,13 @@ public class RouteData extends Observable {
             setChanged();
             notifyObservers();
         }
+    }
+
+    public int[][] getTop3Orders() {
+        return top3Orders;
+    }
+
+    public double[] getDistances() {
+        return distances;
     }
 }
