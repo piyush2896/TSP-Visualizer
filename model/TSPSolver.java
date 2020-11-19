@@ -26,7 +26,6 @@ public class TSPSolver {
                 ks = new KnowledgeSource(i, k, start, start+windowSize);
             else
                 ks = new KnowledgeSource(i, k, start, TSPData.getInstance().getPoints().size()-1);
-            System.out.println("Created: " + i + "(" + start + ", " + (start+windowSize) + ")");
             start += windowSize+1;
             threadPoolService.execute(ks);
         }

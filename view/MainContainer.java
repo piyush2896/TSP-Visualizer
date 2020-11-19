@@ -1,10 +1,12 @@
 package view;
 
+import model.Point;
 import model.TSPData;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class MainContainer extends JFrame {
     private DrawPanel plotPanel;
@@ -12,24 +14,18 @@ public class MainContainer extends JFrame {
 
     private UpdatePlotListener updatePlotListener;
 
-    private void updatePlot(int[] order) {
-        plotPanel.updateView(order, getSize());
-        revalidate();
-        repaint();
-    }
-
     private void initUpdatePlotListener(){
         updatePlotListener = new UpdatePlotListener() {
             @Override
-            public void newScatterPlot() {
-                plotPanel.initPlot(getSize());
+            public void newScatterPlot(ArrayList<Point> points) {
+                plotPanel.initPlot(points, getSize());
                 revalidate();
                 repaint();
             }
 
             @Override
-            public void newOrderFound(int[] order) {
-                plotPanel.updateView(order, getSize());
+            public void newOrderFound(ArrayList<Point> points, int[] order) {
+                plotPanel.updateView(points, order, getSize());
                 revalidate();
                 repaint();
             }
@@ -88,13 +84,13 @@ public class MainContainer extends JFrame {
         menuBar.getSaveMenuItem().addActionListener(saveMenuActionListener);
     }
 
-    public static void main(String[] args) {
-        MainContainer container = new MainContainer();
-        container.setSize(1000, 1000);
-        container.setVisible(true);
-        TSPData tspData = TSPData.getInstance();
-        tspData.init("C:\\Piyush\\Fall2020\\CSE564\\Assignment05\\CSE564-Assign05\\Data\\wi29.tsp");
-
-        container.getUpdatePlotListener().newScatterPlot();
-    }
+//    public static void main(String[] args) {
+//        MainContainer container = new MainContainer();
+//        container.setSize(1000, 1000);
+//        container.setVisible(true);
+//        TSPData tspData = TSPData.getInstance();
+//        tspData.init("C:\\Piyush\\Fall2020\\CSE564\\Assignment05\\CSE564-Assign05\\Data\\wi29.tsp");
+//
+//        container.getUpdatePlotListener().newScatterPlot();
+//    }
 }

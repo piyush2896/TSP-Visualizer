@@ -12,15 +12,15 @@ import java.util.ArrayList;
 public class ScatterPlot extends JPanel{
 
     private static final long serialVersionUID = 1L;
-    private TSPData tspData;
+    private ArrayList<Point> coords;
     
-    public ScatterPlot(TSPData tspData){
-        this.tspData = tspData;
+    public ScatterPlot(ArrayList<Point> coords){
+        this.coords = coords;
     }
 
     private void fillCoords(Graphics2D g2d){
-        Dimension bounds = getParent().getSize();
-        ArrayList<Point> coords = tspData.getScaledPoints(0, 0, bounds.width, bounds.height);
+//        Dimension bounds = getParent().getSize();
+//        ArrayList<Point> coords = tspData.getScaledPoints(0, 0, bounds.width, bounds.height);
         for (int i = 0; i < coords.size(); i++) {
             Point2D.Double pt = new Point2D.Double(coords.get(i).getX(), coords.get(i).getY());
             Ellipse2D dot = new Ellipse2D.Double(pt.x - 1, pt.y - 1, 5, 5);
