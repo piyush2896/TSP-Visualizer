@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class PausableThreadPoolService extends ThreadPoolExecutor {
 
     private boolean isPaused;
-    private ArrayList<Runnable> runnables;
+    private ArrayList<KnowledgeSource> runnables;
     private Lock pauseLock;
     private Condition resumed;
 
@@ -43,7 +43,7 @@ public class PausableThreadPoolService extends ThreadPoolExecutor {
 
     @Override
     public void execute(Runnable command) {
-        runnables.add(command);
+        runnables.add((KnowledgeSource) command);
         super.execute(command);
     }
 
