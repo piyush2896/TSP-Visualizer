@@ -26,7 +26,6 @@ public class PausableThreadPoolService extends ThreadPoolExecutor {
 
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
-//        System.out.println(((KnowledgeSource)r).getNumber() + " " + isPaused);
         if(isPaused){
             pauseLock.lock();
             try{
@@ -55,7 +54,6 @@ public class PausableThreadPoolService extends ThreadPoolExecutor {
             for(Runnable r: runnables) {
                 ((KnowledgeSource)r).pause();
             }
-            System.out.println("Paused");
         } finally {
             pauseLock.unlock();
         }
@@ -69,7 +67,6 @@ public class PausableThreadPoolService extends ThreadPoolExecutor {
                 for(Runnable r: runnables) {
                     ((KnowledgeSource)r).resume();
                 }
-                System.out.println("Resumed");
                 resumed.signalAll();
             }
         } finally {
