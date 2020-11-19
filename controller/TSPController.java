@@ -120,7 +120,6 @@ public class TSPController implements Observer {
         mainContainer.addRunMenuActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: CHECK FOR TSPData init
                 if(isNew) {
                     int nPoints = TSPData.getInstance().getPoints().size();
                     int nWorkers = 20;
@@ -141,9 +140,10 @@ public class TSPController implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser(".");
-                int result = fileChooser.showOpenDialog(null);
+                int result = fileChooser.showOpenDialog(mainContainer);
                 if(result == JFileChooser.APPROVE_OPTION){
                     String tspFile = fileChooser.getSelectedFile().getAbsolutePath();
+                    tspSolver = null;
                     TSPData.getInstance().clean();
                     TSPData.getInstance().init(tspFile);
                     mainContainer.updateMenuItemEnabled(true, true, true, true, false);
@@ -159,17 +159,22 @@ public class TSPController implements Observer {
         mainContainer.addSaveMenuActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: Save data
-                String filename = TSPData.getInstance().getFilename();
-                filename = filename.replace(".tsp", ".txt");
-                IOOps.points2file(TSPData.getInstance().getPoints(), filename);
+                JFileChooser fileChooser = new JFileChooser(".");
+                int result = fileChooser.showSaveDialog(mainContainer);
+
+                if(result == JFileChooser.APPROVE_OPTION) {
+                    String saveFile = fileChooser.getSelectedFile().getAbsolutePath();
+                    IOOps.points2file(TSPData.getInstance().getPoints(), saveFile);
+                }
+//                String filename = TSPData.getInstance().getFilename();
+//                filename = filename.replace(".tsp", ".txt");
+//                IOOps.points2file(TSPData.getInstance().getPoints(), filename);
             }
         });
 
         mainContainer.addStopMenuActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO: Check if tspSolver isn't null
                 tspSolver.pause();
                 isNew = false;
                 mainContainer.updateMenuItemEnabled(

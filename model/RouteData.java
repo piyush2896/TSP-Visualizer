@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Observable;
+import java.util.Observer;
 
 public class RouteData extends Observable {
     public static RouteData ROUTE_DATA_INSTANCE = null;
@@ -55,6 +56,11 @@ public class RouteData extends Observable {
         }
     }
 
+    public void init(){
+        top3Orders = new int[3][TSPData.getInstance().getPoints().size()];
+        distances  = new double[]{Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE};
+    }
+
     public int[][] getTop3Orders() {
         return top3Orders;
     }
@@ -62,4 +68,5 @@ public class RouteData extends Observable {
     public double[] getDistances() {
         return distances;
     }
+
 }

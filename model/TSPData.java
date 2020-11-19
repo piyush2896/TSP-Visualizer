@@ -43,6 +43,7 @@ public class TSPData extends Observable {
 
         points = IOOps.file2points(filename);
         initMaxAndMin();
+        RouteData.getInstance().init();
     }
 
     private Point toRange(Point point, double[] beforeX, double[] beforeY, double[] newX, double[] newY){
@@ -114,5 +115,6 @@ public class TSPData extends Observable {
     public void clean(){
         isInitialized = false;
         points = null;
+//        RouteData.getInstance().clean();
     }
 }
