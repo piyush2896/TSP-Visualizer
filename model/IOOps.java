@@ -1,8 +1,6 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class IOOps {
@@ -13,7 +11,6 @@ public class IOOps {
 
         try {
             reader = new BufferedReader(new FileReader(filename));
-            int lineNum = 1;
             String line = reader.readLine();
 
             while(!(line.charAt(0) == '1')){
@@ -38,5 +35,19 @@ public class IOOps {
             System.out.print(ex);
         }
         return null;
+    }
+
+    public static void points2file(ArrayList<Point> points, String filename) {
+        try {
+            FileWriter fileWriter = new FileWriter(filename);
+            PrintWriter writer = new PrintWriter(fileWriter);
+            for(int i = 0; i < points.size(); i++){
+                Point pt = points.get(i);
+                writer.printf("%d %f %f%n", i+1, pt.getX(), pt.getY());
+            }
+            writer.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }

@@ -4,6 +4,7 @@ import model.Point;
 import model.TSPData;
 
 import javax.swing.*;
+import javax.swing.event.MenuListener;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -84,13 +85,7 @@ public class MainContainer extends JFrame {
         menuBar.getSaveMenuItem().addActionListener(saveMenuActionListener);
     }
 
-//    public static void main(String[] args) {
-//        MainContainer container = new MainContainer();
-//        container.setSize(1000, 1000);
-//        container.setVisible(true);
-//        TSPData tspData = TSPData.getInstance();
-//        tspData.init("C:\\Piyush\\Fall2020\\CSE564\\Assignment05\\CSE564-Assign05\\Data\\wi29.tsp");
-//
-//        container.getUpdatePlotListener().newScatterPlot();
-//    }
+    public void addAboutMenuListener(MenuListener aboutMenuListener) {
+        menuBar.getAboutMenu().addMenuListener(aboutMenuListener);
+    }
 }

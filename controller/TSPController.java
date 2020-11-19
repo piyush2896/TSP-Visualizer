@@ -1,20 +1,17 @@
 package controller;
 
+import model.*;
 import model.Point;
-import model.RouteData;
-import model.TSPData;
-import model.TSPSolver;
 import view.MainContainer;
 import view.UpdatePlotListener;
 import view.plotlab.LinePlot;
 import view.plotlab.ScatterPlot;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -22,11 +19,43 @@ import java.util.Observer;
 public class TSPController implements Observer {
 
     private final static int K = 1;
+    private final static String ABOUT_CONTENT = new StringBuilder()
+            .append("<html><center>Team Details...")
+            .append("<br>Khushboo Gupta, kgupta51@asu.edu, 1217167315")
+            .append("<br>Piyush Malhotra, pmalhot3@asu.edu, 1217439379")
+            .append("<br>Swarnalatha Srenigarajan, ssreniga@asu.edu, 1217035534</center></html>")
+            .toString();
 
     private MainContainer mainContainer;
     private TSPSolver tspSolver;
     private UpdatePlotListener plotListener;
     private boolean isNew;
+
+    private void show(){
+        mainContainer.setSize(1000, 1000);
+        mainContainer.setVisible(true);
+    }
+
+    private void addAbout() {
+        mainContainer.addAboutMenuListener(new MenuListener() {
+            @Override
+            public void menuSelected(MenuEvent e) {
+                JLabel label = new JLabel(TSPController.ABOUT_CONTENT);
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                JOptionPane.showMessageDialog(mainContainer,  label);
+            }
+
+            @Override
+            public void menuDeselected(MenuEvent e) {
+
+            }
+
+            @Override
+            public void menuCanceled(MenuEvent e) {
+
+            }
+        });
+    }
 
     private void addResizeListener() {
         mainContainer.addComponentListener(new ComponentAdapter() {
@@ -53,9 +82,25 @@ public class TSPController implements Observer {
         });
     }
 
-    private void show(){
-        mainContainer.setSize(1000, 1000);
-        mainContainer.setVisible(true);
+    private void addMouseClickListener() {
+        mainContainer.addMouseClickListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if(mainContainer.getPlotPanel().getComponentCount() == 0 ||
+                        mainContainer.getPlotPanel().getComponent(0) instanceof ScatterPlot){
+
+                    double x = e.getX();
+                    double y = e.getY();
+
+                    Dimension bounds = mainContainer.getPlotPanel().getSize();
+                    TSPData.getInstance().addPoint(x, y, 0, 0, bounds.width, bounds.height);
+
+                    mainContainer.updateMenuItemEnabled(
+                            true, true, true, true, false);
+                }
+            }
+        });
     }
 
     private void addMenuActionListeners(){
@@ -82,8 +127,6 @@ public class TSPController implements Observer {
                     if (nPoints < 40) {
                         nWorkers = nPoints;
                     }
-
-                    System.out.println(nPoints + " " + nWorkers);
 
                     tspSolver = new TSPSolver(nWorkers, TSPController.K);
                     tspSolver.run();
@@ -117,6 +160,9 @@ public class TSPController implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // TODO: Save data
+                String filename = TSPData.getInstance().getFilename();
+                filename = filename.replace(".tsp", ".txt");
+                IOOps.points2file(TSPData.getInstance().getPoints(), filename);
             }
         });
 
@@ -135,11 +181,15 @@ public class TSPController implements Observer {
     public TSPController() {
         tspSolver = null;
         isNew = true;
-        mainContainer = new MainContainer();
-        plotListener = mainContainer.getUpdatePlotListener();
-        addMenuActionListeners();
-        addResizeListener();
-        show();
+        EventQueue.invokeLater(() ->{
+            mainContainer = new MainContainer();
+            plotListener = mainContainer.getUpdatePlotListener();
+            addMenuActionListeners();
+            addResizeListener();
+            addMouseClickListener();
+            addAbout();
+            show();
+        });
     }
 
     public static void main(String[] args) {

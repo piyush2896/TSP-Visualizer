@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,6 +15,7 @@ public class TSPData extends Observable {
     private double maxY;
     private double minX;
     private double minY;
+    private String filename;
 
     private TSPData(){}
 
@@ -37,6 +39,7 @@ public class TSPData extends Observable {
 
     public void init(String filename){
         isInitialized = true;
+        this.filename = filename;
 
         points = IOOps.file2points(filename);
         initMaxAndMin();
@@ -44,8 +47,10 @@ public class TSPData extends Observable {
 
     private Point toRange(Point point, double[] beforeX, double[] beforeY, double[] newX, double[] newY){
         Point newPoint = point.clone();
-        double x =  (point.getX() - beforeX[0]) / (beforeX[1] - beforeX[0]) * (newX[1] - newX[0]);
-        double y =  (point.getY() - beforeY[0]) / (beforeY[1] - beforeY[0]) * (newY[1] - newY[0]);
+        double normalizedX = (point.getX() - beforeX[0]) / (beforeX[1] - beforeX[0]);
+        double normalizedY = (point.getY() - beforeY[0]) / (beforeY[1] - beforeY[0]);
+        double x =  normalizedX * (newX[1] - newX[0]) + newX[0];
+        double y =  normalizedY * (newY[1] - newY[0]) + newY[0];
 
         newPoint.setX(x);
         newPoint.setY(y);
@@ -53,12 +58,22 @@ public class TSPData extends Observable {
     }
 
     public void addPoint(double x, double y, double minX, double minY, double maxX, double maxY){
+        if(isInitialized){
+            Point point = toRange(
+                    new Point(x, y), new double[]{minX, maxX}, new double[]{minY, maxY},
+                    new double[]{this.minX, this.maxX}, new double[]{this.minY, this.maxY});
+            points.add(point);
+        }else {
+            isInitialized = true;
+            this.maxX = maxX;
+            this.maxY = maxY;
+            this.minX = minX;
+            this.minY = minY;
+            points = new ArrayList<>();
+            filename = System.getProperty("user.dir") + File.separator + "points.txt";
+            points.add(new Point(x, y));
+        }
 
-        Point point = toRange(
-                new Point(x, y), new double[]{minX, maxX}, new double[]{minY, maxY},
-                new double[]{this.minX, this.maxX}, new double[]{this.minY, this.maxY});
-
-        points.add(point);
 
         setChanged();
         notifyObservers();
@@ -92,12 +107,9 @@ public class TSPData extends Observable {
 
     public ArrayList<Point> getPoints() { return points; }
 
-//    @Override
-//    public void update(Observable o, Object coords) {
-//        // coords - > {Y coord, X coord, minY, minX, maxY, maxX}
-//        double[] pointDouble = (double[]) coords;
-//        addPoint(pointDouble[1], pointDouble[0], pointDouble[3], pointDouble[2], pointDouble[5], pointDouble[4]);
-//    }
+    public String getFilename() {
+        return filename;
+    }
 
     public void clean(){
         isInitialized = false;

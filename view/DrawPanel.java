@@ -19,7 +19,6 @@ public class DrawPanel extends JPanel {
 
     public void initPlot(ArrayList<Point> points, Dimension bounds){
 
-        System.out.println(bounds.width + " " + bounds.height);
         ScatterPlot plot = new ScatterPlot(points);
 
         if(getComponentCount() != 0){
