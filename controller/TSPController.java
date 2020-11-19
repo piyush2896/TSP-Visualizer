@@ -166,9 +166,6 @@ public class TSPController implements Observer {
                     String saveFile = fileChooser.getSelectedFile().getAbsolutePath();
                     IOOps.points2file(TSPData.getInstance().getPoints(), saveFile);
                 }
-//                String filename = TSPData.getInstance().getFilename();
-//                filename = filename.replace(".tsp", ".txt");
-//                IOOps.points2file(TSPData.getInstance().getPoints(), filename);
             }
         });
 
