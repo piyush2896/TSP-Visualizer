@@ -1,6 +1,8 @@
 package view;
 
+import model.Blackboard;
 import model.Point;
+import model.RouteData;
 import model.TSPData;
 import view.plotlab.LinePlot;
 import view.plotlab.ScatterPlot;
@@ -9,8 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class DrawPanel extends JPanel {
+public class DrawPanel extends JPanel implements Observer {
     private BufferedImage bi = new BufferedImage(2000, 1000, BufferedImage.TYPE_INT_RGB);
 
     public DrawPanel(){
@@ -39,4 +43,33 @@ public class DrawPanel extends JPanel {
         repaint();
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        if((Boolean) arg ){//o instanceof TSPData){
+//            if(tspSolver != null){
+//                tspSolver.pause();
+//            }
+            Dimension size = getSize();
+            ArrayList<Point> scaledPoints = Blackboard.getInstance().getScaledPoints(
+                    0, 0, size.width, size.height);
+            initPlot(scaledPoints, getSize());
+            revalidate();
+            repaint();
+//            if(tspSolver != null) {
+//                tspSolver.resume();
+//            }
+        }else {//if(o instanceof RouteData){
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    Dimension size = getSize();
+                    ArrayList<Point> scaledPoints = Blackboard.getInstance().getScaledPoints(
+                            0, 0, size.width, size.height);
+                    updateView(scaledPoints, Blackboard.getInstance().getTop3Orders(), getSize());
+                    revalidate();
+                    repaint();
+                }
+            });
+        }
+    }
 }

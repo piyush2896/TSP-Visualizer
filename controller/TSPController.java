@@ -13,12 +13,10 @@ import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.concurrent.TimeUnit;
 
-public class TSPController implements Observer {
+public class TSPController {
 
-    private final static int K = 1;
     private final static String ABOUT_CONTENT = new StringBuilder()
             .append("<html><center>Team Details...")
             .append("<br>Khushboo Gupta, kgupta51@asu.edu, 1217167315")
@@ -68,12 +66,12 @@ public class TSPController implements Observer {
                         public void run() {
                             if(mainContainer.getPlotPanel().getComponent(0) instanceof ScatterPlot){
                                 Dimension size = mainContainer.getPlotPanel().getSize();
-                                ArrayList<Point> scaledPoints = TSPData.getInstance().getScaledPoints(0, 0, size.width, size.height);
+                                ArrayList<Point> scaledPoints = Blackboard.getInstance().getScaledPoints(0, 0, size.width, size.height);
                                 plotListener.newScatterPlot(scaledPoints);
                             }else if(mainContainer.getPlotPanel().getComponent(0) instanceof LinePlot){
                                 Dimension size = mainContainer.getPlotPanel().getSize();
-                                ArrayList<Point> scaledPoints = TSPData.getInstance().getScaledPoints(0, 0, size.width, size.height);
-                                plotListener.newOrderFound(scaledPoints, RouteData.getInstance().getTop3Orders());
+                                ArrayList<Point> scaledPoints = Blackboard.getInstance().getScaledPoints(0, 0, size.width, size.height);
+                                plotListener.newOrderFound(scaledPoints, Blackboard.getInstance().getTop3Orders());
                             }
                         }
                     });
@@ -94,7 +92,7 @@ public class TSPController implements Observer {
                     double y = e.getY();
 
                     Dimension bounds = mainContainer.getPlotPanel().getSize();
-                    TSPData.getInstance().addPoint(x, y, 0, 0, bounds.width, bounds.height);
+                    Blackboard.getInstance().addPoint(x, y, 0, 0, bounds.width, bounds.height);
 
                     mainContainer.updateMenuItemEnabled(
                             true, true, true, true, false);
@@ -108,7 +106,12 @@ public class TSPController implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 tspSolver.kill();
-                TSPData.getInstance().clean();
+                try {
+                    tspSolver.getThreadPoolService().awaitTermination(10, TimeUnit.SECONDS);
+                }catch (Exception exp){
+
+                }
+                Blackboard.getInstance().clean();
                 mainContainer.getPlotPanel().removeAll();
                 mainContainer.updateMenuItemEnabled(true, false, false, true, false);
                 mainContainer.revalidate();
@@ -121,13 +124,13 @@ public class TSPController implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isNew) {
-                    int nPoints = TSPData.getInstance().getPoints().size();
+                    int nPoints = Blackboard.getInstance().getPoints().size();
                     int nWorkers = 20;
                     if (nPoints < 40) {
                         nWorkers = nPoints;
                     }
 
-                    tspSolver = new TSPSolver(nWorkers, TSPController.K);
+                    tspSolver = new TSPSolver(nWorkers);
                     tspSolver.run();
                 }else {
                     tspSolver.resume();
@@ -144,11 +147,11 @@ public class TSPController implements Observer {
                 if(result == JFileChooser.APPROVE_OPTION){
                     String tspFile = fileChooser.getSelectedFile().getAbsolutePath();
                     tspSolver = null;
-                    TSPData.getInstance().clean();
-                    TSPData.getInstance().init(tspFile);
+                    Blackboard.getInstance().clean();
+                    Blackboard.getInstance().init(tspFile);
                     mainContainer.updateMenuItemEnabled(true, true, true, true, false);
                     Dimension size = mainContainer.getPlotPanel().getSize();
-                    ArrayList<Point> scaledPoints = TSPData.getInstance().getScaledPoints(0, 0, size.width, size.height);
+                    ArrayList<Point> scaledPoints = Blackboard.getInstance().getScaledPoints(0, 0, size.width, size.height);
                     plotListener.newScatterPlot(scaledPoints);
                     mainContainer.revalidate();
                     mainContainer.repaint();
@@ -164,7 +167,7 @@ public class TSPController implements Observer {
 
                 if(result == JFileChooser.APPROVE_OPTION) {
                     String saveFile = fileChooser.getSelectedFile().getAbsolutePath();
-                    IOOps.points2file(TSPData.getInstance().getPoints(), saveFile);
+                    IOOps.points2file(Blackboard.getInstance().getPoints(), saveFile);
                 }
             }
         });
@@ -183,46 +186,19 @@ public class TSPController implements Observer {
     public TSPController() {
         tspSolver = null;
         isNew = true;
-        EventQueue.invokeLater(() ->{
-            mainContainer = new MainContainer();
-            plotListener = mainContainer.getUpdatePlotListener();
-            addMenuActionListeners();
-            addResizeListener();
-            addMouseClickListener();
-            addAbout();
-            show();
-        });
+        mainContainer = new MainContainer();
+        plotListener = mainContainer.getUpdatePlotListener();
+        addMenuActionListeners();
+        addResizeListener();
+        addMouseClickListener();
+        addAbout();
+        show();
+
     }
 
     public static void main(String[] args) {
         TSPController controller = new TSPController();
-        RouteData.getInstance().addObserver(controller);
-        TSPData.getInstance().addObserver(controller);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if(o instanceof TSPData){
-            if(tspSolver != null){
-                tspSolver.pause();
-            }
-            Dimension size = mainContainer.getPlotPanel().getSize();
-            ArrayList<Point> scaledPoints = TSPData.getInstance().getScaledPoints(
-                    0, 0, size.width, size.height);
-            plotListener.newScatterPlot(scaledPoints);
-            if(tspSolver != null) {
-                tspSolver.resume();
-            }
-        }else if(o instanceof RouteData){
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    Dimension size = mainContainer.getPlotPanel().getSize();
-                    ArrayList<Point> scaledPoints = TSPData.getInstance().getScaledPoints(
-                            0, 0, size.width, size.height);
-                    plotListener.newOrderFound(scaledPoints, RouteData.getInstance().getTop3Orders());
-                }
-            });
-        }
+//        RouteData.getInstance().addObserver(controller.mainContainer.getPlotPanel());
+        Blackboard.getInstance().addObserver(controller.mainContainer.getPlotPanel());
     }
 }

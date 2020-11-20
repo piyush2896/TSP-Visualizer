@@ -4,15 +4,13 @@ public class KnowledgeSource implements Runnable {
     private int number;
     private int startPoint;
     private int endPoint;
-    private int k;
-    private KNN bestKNN;
+    private NN bestNN;
     private double distance;
     private boolean isPaused;
 
-    public KnowledgeSource(int number, int k, int startPoint, int endPoint){
+    public KnowledgeSource(int number, int startPoint, int endPoint){
         this.number = number;
         this.startPoint = startPoint;
-        this.k = k;
         this.endPoint = endPoint;
         this.isPaused = false;
     }
@@ -26,23 +24,24 @@ public class KnowledgeSource implements Runnable {
     }
 
     public int[] getOrder(){
-        return bestKNN.getBestOrder();
+        return bestNN.getBestOrder();
     }
 
     @Override
     public void run() {
         try {
             double minDistance = Double.MAX_VALUE;
-            KNN knn = new KNN(this.k, new Euclidean());
+            NN NN = new NN(new Euclidean());
             for(int i = startPoint; i <= endPoint; i++){
+                if(Thread.currentThread().isInterrupted()) break;
                 while (isPaused){
                     Thread.sleep(1000);
                 }
-                distance = knn.run(i);
+                distance = NN.run(i);
                 if(distance < minDistance){
                     minDistance = distance;
-                    bestKNN = knn;
-                    RouteData.getInstance().checkIfInTop3(bestKNN.getBestOrder(), minDistance);
+                    bestNN = NN;
+                    Blackboard.getInstance().checkIfInTop3(bestNN.getBestOrder(), minDistance);
                 }
             }
         }catch (Exception e) {

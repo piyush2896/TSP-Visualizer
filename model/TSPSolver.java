@@ -5,11 +5,9 @@ public class TSPSolver {
 
     private int nWorkers;
     private PausableThreadPoolService threadPoolService;
-    private int k;
 
-    public TSPSolver(int nWorkers, int k) {
+    public TSPSolver(int nWorkers) {
         this.nWorkers = nWorkers;
-        this.k = k;
         threadPoolService = new PausableThreadPoolService();
     }
 
@@ -18,14 +16,14 @@ public class TSPSolver {
     }
 
     public void run() {
-        int windowSize = TSPData.getInstance().getPoints().size() / nWorkers;
+        int windowSize = Blackboard.getInstance().getPoints().size() / nWorkers;
         int start = 0;
         for(int i = 0; i < nWorkers; i++){
             KnowledgeSource ks;
-            if(start+windowSize < TSPData.getInstance().getPoints().size())
-                ks = new KnowledgeSource(i, k, start, start+windowSize);
+            if(start+windowSize < Blackboard.getInstance().getPoints().size())
+                ks = new KnowledgeSource(i, start, start+windowSize);
             else
-                ks = new KnowledgeSource(i, k, start, TSPData.getInstance().getPoints().size()-1);
+                ks = new KnowledgeSource(i, start, Blackboard.getInstance().getPoints().size()-1);
             start += windowSize+1;
             threadPoolService.execute(ks);
         }
