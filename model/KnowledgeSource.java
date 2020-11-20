@@ -1,6 +1,6 @@
 package model;
 
-public class KnowledgeSource implements Runnable {
+public class KnowledgeSource extends Thread {
     private int number;
     private int startPoint;
     private int endPoint;
@@ -53,7 +53,7 @@ public class KnowledgeSource implements Runnable {
         isPaused = true;
     }
 
-    public void resume() {
+    public void resumeThread() {
         isPaused = false;
     }
 

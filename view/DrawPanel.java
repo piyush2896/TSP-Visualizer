@@ -45,20 +45,14 @@ public class DrawPanel extends JPanel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if((Boolean) arg ){//o instanceof TSPData){
-//            if(tspSolver != null){
-//                tspSolver.pause();
-//            }
+        if((Boolean) arg ){
             Dimension size = getSize();
             ArrayList<Point> scaledPoints = Blackboard.getInstance().getScaledPoints(
                     0, 0, size.width, size.height);
             initPlot(scaledPoints, getSize());
             revalidate();
             repaint();
-//            if(tspSolver != null) {
-//                tspSolver.resume();
-//            }
-        }else {//if(o instanceof RouteData){
+        }else {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {

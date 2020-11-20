@@ -41,6 +41,7 @@ public class TSPSolver {
 
     public void kill() {
         try{
+            threadPoolService.kill();
             threadPoolService.shutdownNow();
         }catch (Exception e){
             System.out.println("Interrupted Threads!");

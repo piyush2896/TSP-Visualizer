@@ -196,9 +196,7 @@ public class TSPController {
 
     }
 
-    public static void main(String[] args) {
-        TSPController controller = new TSPController();
-//        RouteData.getInstance().addObserver(controller.mainContainer.getPlotPanel());
-        Blackboard.getInstance().addObserver(controller.mainContainer.getPlotPanel());
+    public MainContainer getMainContainer() {
+        return mainContainer;
     }
 }

@@ -64,13 +64,19 @@ public class PausableThreadPoolService extends ThreadPoolExecutor {
         try {
             if(isPaused){
                 isPaused = false;
-                for(Runnable r: runnables) {
-                    ((KnowledgeSource)r).resume();
+                for(KnowledgeSource r: runnables) {
+                    r.resumeThread();
                 }
                 resumed.signalAll();
             }
         } finally {
             pauseLock.unlock();
+        }
+    }
+
+    public void kill() {
+        for(KnowledgeSource ks : runnables) {
+            ks.interrupt();
         }
     }
 }
