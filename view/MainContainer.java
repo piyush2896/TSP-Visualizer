@@ -1,17 +1,12 @@
 package view;
 
 import model.Point;
-import model.RouteData;
-import model.TSPData;
 
 import javax.swing.*;
 import javax.swing.event.MenuListener;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 public class MainContainer extends JFrame {
     private DrawPanel plotPanel;

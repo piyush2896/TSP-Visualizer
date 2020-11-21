@@ -2,8 +2,6 @@ package view;
 
 import model.Blackboard;
 import model.Point;
-import model.RouteData;
-import model.TSPData;
 import view.plotlab.LinePlot;
 import view.plotlab.ScatterPlot;
 
@@ -15,7 +13,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class DrawPanel extends JPanel implements Observer {
-    private BufferedImage bi = new BufferedImage(2000, 1000, BufferedImage.TYPE_INT_RGB);
 
     public DrawPanel(){
         setLayout(new GridLayout(1, 1));

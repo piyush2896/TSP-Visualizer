@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="859.2055653942015" y="670.0">view.UpdatePlotListener</node>
+    <node x="346.0" y="1256.701171875">com</node>
+    <node x="534.4576033057851" y="980.0">App</node>
+    <node x="70.51666666666671" y="570.0">model.KnowledgeSource</node>
+    <node x="261.0" y="1181.701171875">netscape</node>
+    <node x="734.2055653942015" y="670.0">view.MenuBar</node>
+    <node x="760.9576033057851" y="780.0">view.MainContainer</node>
+    <node x="987.0" y="1055.0">toolbarButtonGraphics</node>
+    <node x="676.0" y="1256.701171875">sun</node>
+    <node x="594.2055653942015" y="670.0">view.DrawPanel</node>
+    <node x="0.0" y="1181.701171875">groovyjarjarasm</node>
+    <node x="173.0" y="1256.701171875">java</node>
+    <node x="455.3742699724519" y="570.0">view.plotlab.ScatterPlot</node>
+    <node x="1049.0" y="1181.701171875">javax</node>
+    <node x="0.0" y="490.0">model.Euclidean</node>
+    <node x="532.4576033057851" y="900.0">controller.TSPController</node>
+    <node x="347.0" y="1068.201171875">groovyjarjarpicocli</node>
+    <node x="260.2076033057852" y="300.0">model.RouteData</node>
+    <node x="286.95556539420147" y="220.0">model.TSPData</node>
+    <node x="671.0" y="1181.701171875">images</node>
+    <node x="103.58302702348112" y="670.0">model.PausableThreadPoolService</node>
+    <node x="511.0" y="1256.701171875">org</node>
+    <node x="0.0" y="1256.701171875">Data</node>
+    <node x="461.98302702348116" y="0.0">model.Point</node>
+    <node x="46.55253509117108" y="390.0">model.DistanceMetric</node>
+    <node x="611.3742699724519" y="570.0">view.plotlab.LinePlot</node>
+    <node x="841.0" y="1256.701171875">jdk</node>
+    <node x="466.0" y="1181.701171875">META-INF</node>
+    <node x="860.0" y="1181.701171875">groovy</node>
+    <node x="378.8742699724519" y="140.0">model.IOOps</node>
+    <node x="252.95253509117106" y="390.0">model.Blackboard</node>
+    <node x="670.0" y="1055.0">groovyjarjarcommonscli</node>
+    <node x="144.91666666666674" y="490.0">model.NN</node>
+    <node x="122.46950806768996" y="780.0">model.TSPSolver</node>
+    <node x="40.0" y="1060.701171875">groovyjarjarantlr</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="controller.TSPController" target="model.Blackboard">
+      <point x="-41.454545454545496" y="-15.0" />
+      <point x="567.0030578512396" y="860.0" />
+      <point x="411.3692017578378" y="860.0" />
+      <point x="411.3692017578378" y="450.0" />
+      <point x="353.52396366259967" y="450.0" />
+      <point x="36.57142857142861" y="15.0" />
+    </edge>
+    <edge source="model.TSPData" target="model.IOOps">
+      <point x="39.0" y="-15.0" />
+      <point x="377.95556539420147" y="200.0" />
+      <point x="400.8742699724519" y="200.0" />
+      <point x="-22.0" y="15.0" />
+    </edge>
+    <edge source="view.plotlab.LinePlot" target="model.Point">
+      <point x="28.0" y="-15.0" />
+      <point x="695.3742699724519" y="550.0" />
+      <point x="678.9555653942015" y="550.0" />
+      <point x="678.9555653942015" y="90.0" />
+      <point x="525.2330270234811" y="90.0" />
+      <point x="19.25" y="15.0" />
+    </edge>
+    <edge source="view.MainContainer" target="view.DrawPanel">
+      <point x="-67.55555555555554" y="-15.0" />
+      <point x="769.4020477502297" y="760.0" />
+      <point x="614.2055653942015" y="760.0" />
+      <point x="-40.0" y="15.0" />
+    </edge>
+    <edge source="model.Blackboard" target="model.RouteData">
+      <point x="0.0" y="-15.0" />
+      <point x="316.95253509117106" y="350.0" />
+      <point x="290.2076033057852" y="350.0" />
+      <point x="-30.0" y="15.0" />
+    </edge>
+    <edge source="model.TSPSolver" target="model.KnowledgeSource">
+      <point x="-50.0" y="-15.0" />
+      <point x="132.46950806768996" y="760.0" />
+      <point x="82.08302702348112" y="760.0" />
+      <point x="82.08302702348112" y="640.0" />
+      <point x="91.51666666666671" y="640.0" />
+      <point x="-63.0" y="15.0" />
+    </edge>
+    <edge source="controller.TSPController" target="view.plotlab.ScatterPlot">
+      <point x="-13.818181818181756" y="-15.0" />
+      <point x="594.6394214876034" y="840.0" />
+      <point x="493.7350649350649" y="840.0" />
+      <point x="493.7350649350649" y="650.0" />
+      <point x="478.04093663911857" y="650.0" />
+      <point x="-45.333333333333314" y="15.0" />
+    </edge>
+    <edge source="controller.TSPController" target="view.plotlab.LinePlot">
+      <point x="0.0" y="-15.0" />
+      <point x="608.4576033057851" y="830.0" />
+      <point x="583.7055653942015" y="830.0" />
+      <point x="583.7055653942015" y="650.0" />
+      <point x="630.0409366391185" y="650.0" />
+      <point x="-37.33333333333337" y="15.0" />
+    </edge>
+    <edge source="view.DrawPanel" target="model.Point">
+      <point x="50.0" y="-15.0" />
+      <point x="704.2055653942015" y="650.0" />
+      <point x="760.6517316017315" y="650.0" />
+      <point x="760.6517316017315" y="80.0" />
+      <point x="530.7330270234811" y="80.0" />
+      <point x="24.75" y="15.0" />
+    </edge>
+    <edge source="model.NN" target="model.Blackboard">
+      <point x="8.0" y="-15.0" />
+      <point x="184.91666666666674" y="450.0" />
+      <point x="262.09539223402817" y="450.0" />
+      <point x="-54.85714285714286" y="15.0" />
+    </edge>
+    <edge source="controller.TSPController" target="model.Point">
+      <point x="69.09090909090912" y="-15.0" />
+      <point x="677.5485123966944" y="880.0" />
+      <point x="1061.7055653942016" y="880.0" />
+      <point x="1061.7055653942016" y="50.0" />
+      <point x="547.2330270234811" y="50.0" />
+      <point x="41.25" y="15.0" />
+    </edge>
+    <edge source="model.IOOps" target="model.Point">
+      <point x="-22.0" y="-15.0" />
+      <point x="400.8742699724519" y="110.0" />
+      <point x="497.73302702348116" y="110.0" />
+      <point x="-8.25" y="15.0" />
+    </edge>
+    <edge source="view.MainContainer" target="view.UpdatePlotListener">
+      <point x="33.77777777777783" y="-15.0" />
+      <point x="870.735381083563" y="740.0" />
+      <point x="883.2055653942015" y="740.0" />
+      <point x="-72.0" y="15.0" />
+    </edge>
+    <edge source="model.Euclidean" target="model.Point">
+      <point x="-30.0" y="-15.0" />
+      <point x="30.0" y="50.0" />
+      <point x="464.73302702348116" y="50.0" />
+      <point x="-41.25" y="15.0" />
+    </edge>
+    <edge source="model.Euclidean" target="model.DistanceMetric">
+      <point x="30.0" y="-15.0" />
+      <point x="90.0" y="470.0" />
+      <point x="73.21920175783771" y="470.0" />
+      <point x="-53.33333333333334" y="15.0" />
+    </edge>
+    <edge source="controller.TSPController" target="view.MainContainer">
+      <point x="13.818181818181756" y="-15.0" />
+      <point x="622.2757851239669" y="840.0" />
+      <point x="786.2909366391186" y="840.0" />
+      <point x="-50.66666666666663" y="15.0" />
+    </edge>
+    <edge source="model.TSPData" target="model.Point">
+      <point x="-39.0" y="-15.0" />
+      <point x="299.95556539420147" y="190.0" />
+      <point x="329.95556539420147" y="190.0" />
+      <point x="329.95556539420147" y="80.0" />
+      <point x="481.23302702348116" y="80.0" />
+      <point x="-24.75" y="15.0" />
+    </edge>
+    <edge source="App" target="controller.TSPController">
+      <point x="0.0" y="-15.0" />
+      <point x="-38.0" y="15.0" />
+    </edge>
+    <edge source="groovyjarjarcommonscli" target="groovyjarjarcommonscli">
+      <point x="68.0" y="15.0" />
+      <point x="874.0" y="1115.0" />
+      <point x="640.0" y="1115.0" />
+      <point x="640.0" y="1062.5" />
+      <point x="-136.0" y="-7.5" />
+    </edge>
+    <edge source="controller.TSPController" target="model.TSPSolver">
+      <point x="-69.09090909090907" y="-15.0" />
+      <point x="539.3666942148761" y="880.0" />
+      <point x="152.46950806768996" y="880.0" />
+      <point x="-30.0" y="15.0" />
+    </edge>
+    <edge source="controller.TSPController" target="model.IOOps">
+      <point x="-27.636363636363626" y="-15.0" />
+      <point x="580.8212396694216" y="850.0" />
+      <point x="444.8742699724519" y="850.0" />
+      <point x="22.0" y="15.0" />
+    </edge>
+    <edge source="model.KnowledgeSource" target="model.Euclidean">
+      <point x="-67.19999999999999" y="-15.0" />
+      <point x="87.31666666666672" y="550.0" />
+      <point x="60.0" y="550.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="model.TSPSolver" target="model.PausableThreadPoolService">
+      <point x="-10.0" y="-15.0" />
+      <point x="172.46950806768996" y="740.0" />
+      <point x="144.91636035681444" y="740.0" />
+      <point x="-82.66666666666667" y="15.0" />
+    </edge>
+    <edge source="view.DrawPanel" target="view.plotlab.LinePlot">
+      <point x="10.0" y="-15.0" />
+      <point x="664.2055653942015" y="650.0" />
+      <point x="667.3742699724519" y="650.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="view.DrawPanel" target="view.plotlab.ScatterPlot">
+      <point x="-30.0" y="-15.0" />
+      <point x="624.2055653942015" y="630.0" />
+      <point x="523.3742699724519" y="630.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="groovyjarjarantlr" target="groovyjarjarantlr">
+      <point x="77.33333333333331" y="15.0" />
+      <point x="233.33333333333331" y="1130.701171875" />
+      <point x="0.0" y="1130.701171875" />
+      <point x="0.0" y="1065.701171875" />
+      <point x="-116.0" y="-10.0" />
+    </edge>
+    <edge source="controller.TSPController" target="view.UpdatePlotListener">
+      <point x="55.27272727272725" y="-15.0" />
+      <point x="663.7303305785124" y="870.0" />
+      <point x="1038.9555653942016" y="870.0" />
+      <point x="1038.9555653942016" y="760.0" />
+      <point x="1027.2055653942016" y="760.0" />
+      <point x="72.0" y="15.0" />
+    </edge>
+    <edge source="model.Blackboard" target="model.Point">
+      <point x="-51.19999999999999" y="-15.0" />
+      <point x="265.75253509117107" y="370.0" />
+      <point x="233.20556539420147" y="370.0" />
+      <point x="233.20556539420147" y="70.0" />
+      <point x="475.73302702348116" y="70.0" />
+      <point x="-30.25" y="15.0" />
+    </edge>
+    <edge source="groovyjarjarpicocli" target="groovyjarjarpicocli">
+      <point x="62.0" y="15.0" />
+      <point x="533.0" y="1128.201171875" />
+      <point x="317.0" y="1128.201171875" />
+      <point x="317.0" y="1075.701171875" />
+      <point x="-124.0" y="-7.5" />
+    </edge>
+    <edge source="view.MainContainer" target="view.MenuBar">
+      <point x="-16.888888888888914" y="-15.0" />
+      <point x="820.0687144168962" y="730.0" />
+      <point x="760.2055653942015" y="730.0" />
+      <point x="-26.0" y="15.0" />
+    </edge>
+    <edge source="model.Blackboard" target="model.TSPData">
+      <point x="-25.599999999999966" y="-15.0" />
+      <point x="291.3525350911711" y="360.0" />
+      <point x="244.20556539420147" y="360.0" />
+      <point x="244.20556539420147" y="270.0" />
+      <point x="299.95556539420147" y="270.0" />
+      <point x="-39.0" y="15.0" />
+    </edge>
+    <edge source="model.RouteData" target="model.TSPData">
+      <point x="-30.0" y="-15.0" />
+      <point x="290.2076033057852" y="280.0" />
+      <point x="325.95556539420147" y="280.0" />
+      <point x="-13.0" y="15.0" />
+    </edge>
+    <edge source="model.KnowledgeSource" target="model.NN">
+      <point x="-33.599999999999966" y="-15.0" />
+      <point x="120.91666666666674" y="540.0" />
+      <point x="155.58333333333337" y="540.0" />
+      <point x="-21.333333333333343" y="15.0" />
+    </edge>
+    <edge source="model.PausableThreadPoolService" target="model.KnowledgeSource">
+      <point x="-62.0" y="-15.0" />
+      <point x="165.58302702348112" y="650.0" />
+      <point x="175.5166666666667" y="650.0" />
+      <point x="21.0" y="15.0" />
+    </edge>
+    <edge source="view.MainContainer" target="model.Point">
+      <point x="16.888888888888914" y="-15.0" />
+      <point x="853.846492194674" y="760.0" />
+      <point x="848.7055653942015" y="760.0" />
+      <point x="848.7055653942015" y="70.0" />
+      <point x="536.2330270234811" y="70.0" />
+      <point x="30.25" y="15.0" />
+    </edge>
+    <edge source="model.TSPData" target="model.RouteData">
+      <point x="13.0" y="15.0" />
+      <point x="351.95556539420147" y="280.0" />
+      <point x="350.2076033057852" y="280.0" />
+      <point x="30.0" y="-15.0" />
+    </edge>
+    <edge source="model.KnowledgeSource" target="model.Blackboard">
+      <point x="67.19999999999999" y="-15.0" />
+      <point x="221.7166666666667" y="550.0" />
+      <point x="247.09220779220772" y="550.0" />
+      <point x="247.09220779220772" y="470.0" />
+      <point x="298.6668208054568" y="470.0" />
+      <point x="-18.285714285714278" y="15.0" />
+    </edge>
+    <edge source="model.NN" target="model.DistanceMetric">
+      <point x="-24.0" y="-15.0" />
+      <point x="152.91666666666674" y="470.0" />
+      <point x="126.55253509117108" y="470.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="view.DrawPanel" target="model.Blackboard">
+      <point x="-50.0" y="-15.0" />
+      <point x="604.2055653942015" y="640.0" />
+      <point x="422.3692017578378" y="640.0" />
+      <point x="422.3692017578378" y="440.0" />
+      <point x="371.80967794831395" y="440.0" />
+      <point x="54.85714285714289" y="15.0" />
+    </edge>
+    <edge source="view.plotlab.ScatterPlot" target="model.Point">
+      <point x="-34.0" y="-15.0" />
+      <point x="489.3742699724519" y="550.0" />
+      <point x="528.2330270234811" y="550.0" />
+      <point x="528.2330270234811" y="120.0" />
+      <point x="508.73302702348116" y="120.0" />
+      <point x="2.75" y="15.0" />
+    </edge>
+    <edge source="model.TSPSolver" target="model.Blackboard">
+      <point x="50.0" y="-15.0" />
+      <point x="232.46950806768996" y="760.0" />
+      <point x="362.0830270234811" y="760.0" />
+      <point x="362.0830270234811" y="470.0" />
+      <point x="316.95253509117106" y="470.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="view.UpdatePlotListener" target="model.Point">
+      <point x="0.0" y="-15.0" />
+      <point x="955.2055653942015" y="60.0" />
+      <point x="541.7330270234811" y="60.0" />
+      <point x="35.75" y="15.0" />
+    </edge>
+    <edge source="model.DistanceMetric" target="model.Point">
+      <point x="0.0" y="-15.0" />
+      <point x="126.55253509117108" y="60.0" />
+      <point x="470.23302702348116" y="60.0" />
+      <point x="-35.75" y="15.0" />
+    </edge>
+    <edge source="App" target="model.Blackboard">
+      <point x="-24.0" y="-15.0" />
+      <point x="546.4576033057851" y="955.0" />
+      <point x="388.3330270234811" y="955.0" />
+      <point x="388.3330270234811" y="460.0" />
+      <point x="335.23824937688534" y="460.0" />
+      <point x="18.285714285714278" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="577.0" y="451.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

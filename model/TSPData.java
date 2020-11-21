@@ -115,6 +115,5 @@ public class TSPData extends Observable {
     public void clean(){
         isInitialized = false;
         points = null;
-//        RouteData.getInstance().clean();
     }
 }
