@@ -19,8 +19,6 @@ public class ScatterPlot extends JPanel{
     }
 
     private void fillCoords(Graphics2D g2d){
-//        Dimension bounds = getParent().getSize();
-//        ArrayList<Point> coords = tspData.getScaledPoints(0, 0, bounds.width, bounds.height);
         for (int i = 0; i < coords.size(); i++) {
             Point2D.Double pt = new Point2D.Double(coords.get(i).getX(), coords.get(i).getY());
             Ellipse2D dot = new Ellipse2D.Double(pt.x - 1, pt.y - 1, 5, 5);
