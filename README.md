@@ -9,4 +9,4 @@ This repository is an assignment for TSP visualization as well as interactions -
 
 
 ## About this code
-This code was made for the submission of Assignment in Fall 2020 offering - CSE 564 Software Design and Arizona State University. As per Open Source Software Norms you can use this code but submitting this as an assignment at your school is discouraged and is the responsibility of the person submitting it.
+This code was made for the submission of Assignment in Fall 2020 offering - CSE 564 Software Design at Arizona State University. As per Open Source Software Norms you can use this code but submitting this as an assignment at your school is discouraged and is the responsibility of the person submitting it.
